@@ -1,0 +1,54 @@
+:root{
+    --primary: #b6895b;
+    --bg:#010101;
+}
+
+.body{
+    background-color: var(--bg);
+}
+
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/images/coffe1.jpg') center/cover no-repeat;
+  height: 100vh;
+}
+
+.navbar{
+  background-color: var(--bg);
+  border-color: var(--primary);
+  opacity: 0.87;
+}
+
+footer{
+    background-color: var(--bg);
+}
+
+.search-bar{
+    margin-top: 100px;
+    margin-bottom: 30px;
+}
+
+/* Tabs Kategori */
+.custom-tabs .nav-link{
+    border-radius: 50px; /* pill shape */
+    padding: 0.5rem 1.5rem;
+    margin: 0 0.25rem;
+    font-weight: 500;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+.custom-tabs .nav-link:hover {
+    background-color: var(--bg); /* highlight on hover */
+    color: #fff;
+}
+
+.custom-tabs .nav-link.active {
+    background-color: var(--primary); /* primary color */
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+/* Tab Kategori end */
+
+.modal-header{
+    background-color: var(--primary);
+}
