@@ -10,13 +10,26 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Products::all();
+        // Ambil input pencarian dari form
+        $search = $request->input('search');
 
-        $makanan = Products::where('category_id', 1)->get();
-        $minuman = Products::where('category_id', 2)->get();
-        $snack = Products::where('category_id', 3)->get();
+        // Jika ada keyword pencarian
+        if ($search) {
+            // Filter produk berdasarkan nama yang mengandung keyword
+            $products = Products::where('nama', 'LIKE', "%{$search}%")->get();
+            $makanan = Products::where('category_id', 1)->where('nama', 'LIKE', "%{$search}%")->get();
+            $minuman = Products::where('category_id', 2)->where('nama', 'LIKE', "%{$search}%")->get();
+            $snack = Products::where('category_id', 3)->where('nama', 'LIKE', "%{$search}%")->get();
+        } else {
+            // Jika tidak ada pencarian, tampilkan semua data
+            $products = Products::all();
+            $makanan = Products::where('category_id', 1)->get();
+            $minuman = Products::where('category_id', 2)->get();
+            $snack = Products::where('category_id', 3)->get();
+        }
+
         return view('pages.orders', compact('products','makanan', 'minuman', 'snack'));
     }
 
@@ -59,7 +72,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Products::findOrFail($id);
+        return view('pages.detail', compact('product'));
     }
 
     /**
@@ -105,4 +119,5 @@ class ProductController extends Controller
     {
         //
     }
+    
 }

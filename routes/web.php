@@ -18,3 +18,15 @@ Route::post('/beranda/dashboard', [App\Http\Controllers\ProductController::class
 
 Route::get('/beranda/dashboard/create{id}/edit', [App\Http\Controllers\ProductController::class, 'edit'])->name('dashboard.edit');
 Route::put('/beranda/dashboard/{id}', [App\Http\Controllers\ProductController::class, 'update'])->name('dashboard.update');
+
+
+Route::get('/beranda/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
+Route::post('/beranda/cart/add', [App\Http\Controllers\CartController::class, 'store'])->name('cart.store');
+
+Route::get('/beranda/detail/{id}', [App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
+// Tambah ke keranjang
+Route::post('/beranda/cart/add', [App\Http\Controllers\CartController::class, 'store'])->name('cart.store');
+
+// Halaman keranjang
+Route::get('/beranda/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
+Route::delete('/beranda/cart/{id}', [App\Http\Controllers\CartController::class, 'destroy'])->name('cart.destroy');

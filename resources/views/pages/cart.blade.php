@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <title>Hello, world!</title>
+  </head>
+<body>
+    <x-navbar/>
+    <div class="container mt-4">
+        
+        <h3 class="search-bar">Keranjang Belanja</h3>
+
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @if(count($cart) > 0)
+            <table class="table table-bordered mt-3">
+                <thead class="table-light">
+                    <tr>
+                        <th>Gambar</th>
+                        <th>Nama</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                        <th>Total</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($cart as $id => $item)
+                        <tr>
+                            <td><img src="{{ asset($item['gambar']) }}" width="80"></td>
+                            <td>{{ $item['nama'] }}</td>
+                            <td>{{ $item['quantity'] }}</td>
+                            <td>Rp {{ number_format($item['harga'], 0, ',', '.') }}</td>
+                            <td>Rp {{ number_format($item['harga'] * $item['quantity'], 0, ',', '.') }}</td>
+                            <td>
+                                <form action="{{ route('cart.destroy', $id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="id" value="{{ $id }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <a href="#" class="btn btn-success">Lanjutkan Pembayaran</a>
+            <a href="/beranda/orders" class="btn btn-primary">Pesan Lagi</a>
+        @else
+            {{-- <p>Keranjang masih kosong.</p> --}}
+        @endif
+    </div>
+</body>
+</html>
